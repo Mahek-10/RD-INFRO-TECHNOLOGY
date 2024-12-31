@@ -1,101 +1,98 @@
-public class SudokuSolver
+public class SudokuSolver 
+{
+    private static final int SIZE = 9;
+    public static void main(String[] args)
   {
-    private static final int SIZE =9;
-    public static void main(String [] args)
-    {
-      int[][] board = {{5, 3, 0, 0, 7, 0, 0, 0, 0},
-        {6, 0, 0, 1, 9, 5, 0, 0, 0},
-      {0, 9, 8, 0, 0, 0, 0, 6, 0},
-      {8, 0, 0, 0, 6, 0, 0, 0, 3},
-      {4, 0, 0, 8, 0, 3, 0, 0, 1},
-      {7, 0, 0, 0, 2, 0, 0, 0, 6},
-      {0, 6, 0, 0, 0, 0, 2, 8, 0},
-      {0, 0, 0, 4, 1, 9, 0, 0, 5},
-      {0, 0, 0, 0, 8, 0, 0, 7, 9}
-    };
-     if
-       (solveSudoku(board))
-     {
-       printBoard(board);
-     }
-      else
-     {
-       System.out.println("No solution exists");
-     }
+        int[][] board = {{5, 3, 0, 0, 7, 0, 0, 0, 0},
+            {6, 0, 0, 1, 9, 5, 0, 0, 0},
+            {0, 9, 8, 0, 0, 0, 0, 6, 0},
+            {8, 0, 0, 0, 6, 0, 0, 0, 3},
+            {4, 0, 0, 8, 0, 3, 0, 0, 1},
+            {7, 0, 0, 0, 2, 0, 0, 0, 6},
+            {0, 6, 0, 0, 0, 0, 2, 8, 0},
+            {0, 0, 0, 4, 1, 9, 0, 0, 5},
+            {0, 0, 0, 0, 8, 0, 0, 7, 9}
+        };
+        if (solveSudoku(board)) 
+        {
+            printBoard(board);
+        }
+        else
+        {
+            System.out.println("No solution exists");
+        }
     }
     private static boolean solveSudoku(int[][] board)
-    {
-      for(int i=0;i<SIZE;i++)
-        {
-          for(int j=0;j<SIZE;j++)
+  {
+        for (int i = 0; i < SIZE; i++)
+          {
+            for (int j = 0; j < SIZE; j++) 
             {
-              if(board[i][j]==0)
-              {
-                for(int num=1;num<=SIZE;num++)
-                  {
-                    if(isValid(board, i, j, num))
+                if (board[i][j] == 0) 
+                {
+                    for (int num = 1; num <= SIZE; num++) 
                     {
-                      board[i][j] = num;
-                      if(soveSudoku(board))
-                      {
-                        return true;
-                      }
-                      board[i][j]=0;
+                        if (isValid(board, i, j, num))
+                        {
+                            board[i][j] = num;
+                            if (solveSudoku(board))
+                            {
+                                return true;
+                            }
+                            board[i][j] = 0;
+                        }
                     }
-                  }
-                return false;
-              }
+                    return false;
+                }
             }
         }
-      return true;
+        return true;
     }
-    private static boolean isValid(int[][]board, int row, int col, int num)
-    {
-      for(int i=0;i<SIZE;i++)
-        {
-          if(board[row][i]==num)
+    private static boolean isValid(int[][] board, int row, int col, int num) 
+  {
+        for (int i = 0; i < SIZE; i++)
           {
-            return false;
-          }
-        }
-      for(int i=0;i<SIZE;i++)
-        {
-          if(board[i][col]==num)
-          {
-            return false;
-          }
-        }
-      int boxRow = row-row%3;
-      int boxCol = col-col%3;
-      for(int i=0;i<3;i++)
-        {
-          for(int j=0;j<3;j++)
+            if (board[row][i] == num)
             {
-              if(board[boxRow+i][boxCol+j]==num)
-              {
                 return false;
-              }
             }
         }
-      return true;
-    }
-    private static voiid printBoard(int[][] board)
-    {
-      for(int i=0;i<SIZE;i++)
-        {
-          for(int j=0;j<SIZE;j++)
-            {
-              System.out.print(board[i][j]+" ");
-              if((j+1)%3==0 && j<8)
-              {
-                System.out.print("| ");
-              }
-            }
-          System.out.println();
-          if((i+1)%3==0 && i<8)
+        for (int i = 0; i < SIZE; i++)
           {
-            System.out.println("--------+--------+--------");
-          }
+            if (board[i][col] == num) 
+            {
+                return false;
+            }
+        }
+        int boxRow = row - row % 3;
+        int boxCol = col - col % 3;
+        for (int i = 0; i < 3; i++) 
+        {
+            for (int j = 0; j < 3; j++)
+              {
+                if (board[boxRow + i][boxCol + j] == num)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    private static void printBoard(int[][] board)
+  {
+        for (int i = 0; i < SIZE; i++)
+          {
+            for (int j = 0; j < SIZE; j++) 
+            {
+                System.out.print(board[i][j] + " ");
+                if ((j + 1) % 3 == 0 && j < 8) {
+                    System.out.print("| ");
+                }
+            }
+            System.out.println();
+            if ((i + 1) % 3 == 0 && i < 8) {
+                System.out.println("--------+---------+--------");
+            }
         }
     }
-  }
+}
